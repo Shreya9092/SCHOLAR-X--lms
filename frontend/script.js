@@ -15,11 +15,12 @@ function checkLogin() {
     alert("Welcome " + userName + "! You are a " + userRole + " for " + userSubject);
 
     
+    
     if (userRole == "teacher") {
-        console.log("Teacher is logging in...");
-        
+        alert("Redirecting to Teacher Page...");
+        window.location.href = "teacher.html"; 
     } else {
-        console.log("Student is logging in...");
-        
+        alert("Redirecting to Student Page...");
+        window.location.href = "student.html"; 
     }
 }
