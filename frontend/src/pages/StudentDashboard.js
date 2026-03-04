@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { API } from '../services/api';
+import { getStudentDashboard} from '../services/api';
 
 const StudentDashboard = () => {
   const [data, setData] = useState(null);
@@ -7,7 +7,7 @@ const StudentDashboard = () => {
  useEffect(() => {
     const fetchDashboard = async () => {
       try {
-        const res = await API.get('/dashboard/student');
+        const res = await getStudentDashboard();
         setData(res.data);
       } catch (err) {
         console.error("Dashboard load failed");
