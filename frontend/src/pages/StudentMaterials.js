@@ -9,7 +9,7 @@ const StudentMaterials = () => {
     const fetchMaterials = async () => {
       try {
         const res = await getAssignments();
-        setMaterials(data);
+        await getAssignments();
       } catch (err) {
         console.error("Could not fetch materials");
       }
