@@ -24,18 +24,18 @@ const Login = () => {
     }
   };
 
-  return (
-    <div className="auth-container">
-      <form className="auth-card" onSubmit={handleSubmit}>
-        <h2 className="lavender-text">Scholar-X Login</h2>
-        <input type="email" placeholder="Email" required 
-               onChange={(e) => setFormData({...formData, email: e.target.value})} />
-        <input type="password" placeholder="Password" required 
-               onChange={(e) => setFormData({...formData, password: e.target.value})} />
-        <button type="submit" className="btn-lavender">Sign In</button>
-      </form>
-    </div>
-  );
+   return (
+        <div className="login-container">
+            <div className="login-box">
+                <h2>Scholar-X Login</h2>
+                <form>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <button type="submit">Sign In</button>
+                </form>
+            </div>
+        </div>
+    );
 };
 
 export default Login;

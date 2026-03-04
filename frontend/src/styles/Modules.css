@@ -1,3 +1,43 @@
+/* 1. Define the Lavender Theme Variables */
+:root {
+  --primary-lavender: #9b87f5;
+  --light-lavender: #f3f0ff;
+  --bg-lavender: #faf9ff;
+  --text-primary: #2d2d2d;
+  --text-secondary: #666666;
+  --border-color: #e5e7eb;
+}
+
+/* 2. Fix the Layout Structure */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-lavender);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.sidebar {
+  width: 260px;
+  background: white;
+  border-right: 1px solid var(--border-color);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+/* 3. Ensure content is visible */
+.module-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
 .module-header { margin-bottom: 2rem; }
 .module-header h1 { font-size: 2rem; color: var(--text-primary); margin-bottom: 0.5rem; }
 
