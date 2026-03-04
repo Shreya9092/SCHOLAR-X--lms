@@ -1,0 +1,22 @@
+.attendance-container {
+  padding: 20px;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.attendance-table th, .attendance-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--lavender-100);
+}
+
+.attendance-table th {
+  background-color: var(--lavender-50);
+  color: var(--lavender-700);
+}
