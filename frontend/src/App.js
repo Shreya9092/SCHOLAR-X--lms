@@ -9,6 +9,8 @@ import StudentMaterials from './pages/StudentMaterials';
 import AdminStudents from './pages/AdminStudents';
 import AdminCourses from './pages/AdminCourses';
 import AdminSections from './pages/AdminSections';
+import './styles/Modules.css';
+import './index.css';
 // Add any other pages that the terminal says are "not defined"
 
 const ProtectedRoute = ({ children, role }) => {
