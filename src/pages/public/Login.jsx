@@ -1,36 +1,24 @@
-import { useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-
-export default function Login() {
-  const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const user = await login(email, password);
-
-      if (user.role === "admin") {
-        navigate("/admin/dashboard");
-      } else if (user.role === "teacher") {
-        navigate("/teacher/dashboard");
-      } else if (user.role === "student") {
-        navigate("/student/dashboard");
-      }
-    } catch (error) {
-      alert("Invalid credentials");
-      console.log(error);
-    }
-  };
-
-  return (
-    <div style={{ padding: "40px" }}>
-      <h2>LMS Login</h2>
+return (
+  <div
+    style={{
+      backgroundColor: "#E6E6FA",
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <div
+      style={{
+        backgroundColor: "white",
+        padding: "40px",
+        borderRadius: "10px",
+        boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+        width: "300px",
+        textAlign: "center",
+      }}
+    >
+      <h2 style={{ marginBottom: "20px" }}>Scholar-X Login</h2>
 
       <form onSubmit={handleSubmit}>
         <input
@@ -38,19 +26,44 @@ export default function Login() {
           placeholder="Enter Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "10px",
+            marginBottom: "15px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
         />
-        <br /><br />
 
         <input
           type="password"
           placeholder="Enter Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "10px",
+            marginBottom: "20px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
         />
-        <br /><br />
 
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: "10px",
+            backgroundColor: "#9370DB",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Login
+        </button>
       </form>
     </div>
-  );
-}
+  </div>
+);
