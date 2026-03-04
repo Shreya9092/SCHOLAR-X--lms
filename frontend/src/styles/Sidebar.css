@@ -1,0 +1,24 @@
+.user-profile-summary {
+  padding: 1rem;
+  margin-bottom: 2rem;
+  background: var(--lavender-50);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.user-name { font-weight: 700; color: var(--text-main); margin: 0; }
+.user-role { font-size: 0.7rem; color: var(--lavender-600); font-weight: 800; margin-top: 4px; }
+
+.logout-btn {
+  margin-top: auto;
+  padding: 12px;
+  background: #fff1f2;
+  color: #e11d48;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover { background: #ffe4e6; }

@@ -7,24 +7,23 @@ const Sidebar = () => {
   const { user, handleLogout } = useAuth();
 
   // Navigation config based on the Postman collection roles
-  const menuConfig = {
+   const menuConfig = {
     admin: [
-      [span_7](start_span){ name: 'Subjects', path: '/admin/subjects', icon: '📖' }, // POST /api/subjects[span_7](end_span)
-      [span_8](start_span){ name: 'Sections', path: '/admin/sections', icon: '🏫' }, // POST /api/sections[span_8](end_span)
-      [span_9](start_span){ name: 'Programmes', path: '/admin/programmes', icon: '🎓' }, // POST /api/programmes[span_9](end_span)
+      { name: 'Subjects', path: '/admin/subjects', icon: '📖' },
+      { name: 'Sections', path: '/admin/sections', icon: '🏫' },
+      { name: 'Programmes', path: '/admin/programmes', icon: '🎓' },
     ],
     teacher: [
-      [span_10](start_span){ name: 'Dashboard', path: '/teacher-dashboard', icon: '📊' }, // GET /api/dashboard/teacher[span_10](end_span)
-      [span_11](start_span){ name: 'Attendance', path: '/teacher/attendance', icon: '📝' }, // POST /api/attendance[span_11](end_span)
-      [span_12](start_span){ name: 'Create Assignment', path: '/teacher/assignments', icon: '➕' }, // POST /api/assignments/create[span_12](end_span)
+      { name: 'Dashboard', path: '/teacher-dashboard', icon: '📊' },
+      { name: 'Attendance', path: '/teacher/attendance', icon: '📝' },
+      { name: 'Create Assignment', path: '/teacher/assignments', icon: '➕' },
     ],
     student: [
-      [span_13](start_span){ name: 'My Dashboard', path: '/student-dashboard', icon: '👤' }, // GET /api/dashboard/student[span_13](end_span)
-      [span_14](start_span){ name: 'Materials', path: '/student/materials', icon: '📚' }, // GET /api/materials/:id[span_14](end_span)
-      [span_15](start_span){ name: 'Assignments', path: '/student/assignments', icon: '📤' }, // GET /api/assignments/student[span_15](end_span)
+      { name: 'My Dashboard', path: '/student-dashboard', icon: '👤' },
+      { name: 'Materials', path: '/student/materials', icon: '📚' },
+      { name: 'Assignments', path: '/student/assignments', icon: '📤' },
     ]
   };
-
   const currentMenu = menuConfig[user?.role] || [];
 
   return (

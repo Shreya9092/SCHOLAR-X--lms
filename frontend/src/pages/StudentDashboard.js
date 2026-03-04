@@ -4,7 +4,7 @@ import { API } from '../services/api';
 const StudentDashboard = () => {
   const [data, setData] = useState(null);
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchDashboard = async () => {
       try {
         const res = await API.get('/dashboard/student');
@@ -15,7 +15,6 @@ const StudentDashboard = () => {
     };
     fetchDashboard();
   }, []);
-
   return (
     <div className="admin-container">
       <h2 className="lavender-text">Student Portal</h2>
