@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/login';
 import TeacherDashboard from './pages/attendance';
-import StudentDashboard from './pages/StudentDashboard';
+import StudentDashboard from './pages/studentdashboard';
 
 const ProtectedRoute = ({ children, role }) => {
   const { user } = useAuth();
@@ -14,9 +14,30 @@ const ProtectedRoute = ({ children, role }) => {
 function App() {
   return (
     <AuthProvider>
-<Router>
-  <Routes>
-    <Route path="/login" element={<Login />} />
+      <Router>
+        <Routes>
+          {/* Teacher Route */}
+<Route path="/teacher/materials" element={
+  <ProtectedRoute role="teacher"><MainLayout><TeacherMaterials /></MainLayout></ProtectedRoute>
+} />
+
+{/* Student Route */}
+<Route path="/student/materials" element={
+  <ProtectedRoute role="student"><MainLayout><StudentMaterials /></MainLayout></ProtectedRoute>
+} />
+          <Route path="/login" element={<Login />} />
+          {/* Admin Specific Routes */}
+          <Route path="/admin/students" element={
+            <ProtectedRoute role="admin">
+              <MainLayout><AdminStudents /></MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/programmes" element={
+            <ProtectedRoute role="admin"><MainLayout><AdminCourses /></MainLayout></ProtectedRoute>
+          } />
+          <Route path="/admin/sections" element={
+            <ProtectedRoute role="admin"><MainLayout><AdminSections /></MainLayout></ProtectedRoute>
+          } />
           
           <Route path="/teacher-dashboard" element={
             <ProtectedRoute role="teacher"><TeacherDashboard /></ProtectedRoute>
