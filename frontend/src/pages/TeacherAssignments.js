@@ -13,7 +13,7 @@ const TeacherAssignments = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post('/assignments/create', task); [span_3](start_span)//[span_3](end_span)
+      await createAssignment(task);
       alert("Assignment Published!");
     } catch (err) {
       alert("Error creating assignment.");

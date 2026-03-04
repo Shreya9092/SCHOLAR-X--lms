@@ -15,7 +15,7 @@ const Login = () => {
       const { data } = await login(formData);
       handleLogin({ token: data.token, role: data.role, name: data.name });
       
-      [span_23](start_span)[span_24](start_span)[span_25](start_span)// Navigate based on backend role[span_23](end_span)[span_24](end_span)[span_25](end_span)
+      // Navigate based on backend role[span_23](end_span)[span_24](end_span)[span_25](end_span)
       if (data.role === 'admin') navigate('/admin');
       else if (data.role === 'teacher') navigate('/teacher-dashboard');
       else navigate('/student-dashboard');

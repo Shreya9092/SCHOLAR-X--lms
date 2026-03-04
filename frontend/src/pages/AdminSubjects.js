@@ -14,7 +14,7 @@ const AdminSubjects = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      [span_3](start_span)// Hits http://localhost:5000/api/subjects[span_3](end_span)
+      // Hits http://localhost:5000/api/subjects[span_3](end_span)
       await API.post('/subjects', subjectData);
       alert("Subject Created Successfully!");
     } catch (err) {

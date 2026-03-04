@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API } from '../services/api';
+import { createAssignment } from '../services/api';
 
 const TeacherMaterials = () => {
   const [file, setFile] = useState(null);
@@ -14,7 +14,7 @@ const TeacherMaterials = () => {
     formData.append('subjectId', details.subjectId);
 
     try {
-      await API.post('/materials/upload', formData, {
+      await createAssignment(formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       alert("Material Uploaded Successfully!");

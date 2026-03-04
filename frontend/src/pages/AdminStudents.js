@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API } from '../services/api';
+import { register } from '../services/api';
 
 const AdminStudents = () => {
   const [studentData, setStudentData] = useState({
@@ -15,7 +15,7 @@ const AdminStudents = () => {
     e.preventDefault();
     try {
       // Hits http://localhost:5000/api/auth/register
-      await API.post('/auth/register', studentData);
+      await register(studentData);
       alert("Student Registered Successfully!");
     } catch (err) {
       alert("Registration failed. Check if email exists or IDs are valid.");

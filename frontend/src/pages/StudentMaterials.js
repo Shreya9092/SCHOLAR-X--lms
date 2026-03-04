@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { API } from '../services/api';
+import { getAssignments } from '../services/api';
 
 const StudentMaterials = () => {
   const [materials, setMaterials] = useState([]);
@@ -8,7 +8,7 @@ const StudentMaterials = () => {
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
-        const { data } = await API.get(`/materials/${subjectId}`);
+        const res = await getAssignments();
         setMaterials(data);
       } catch (err) {
         console.error("Could not fetch materials");

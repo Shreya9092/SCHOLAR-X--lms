@@ -3,6 +3,13 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/login';
 import TeacherDashboard from './pages/attendance';
 import StudentDashboard from './pages/studentdashboard';
+import MainLayout from './components/MainLayout';
+import TeacherMaterials from './pages/TeacherMaterials';
+import StudentMaterials from './pages/StudentMaterials';
+import AdminStudents from './pages/AdminStudents';
+import AdminCourses from './pages/AdminCourses';
+import AdminSections from './pages/AdminSections';
+// Add any other pages that the terminal says are "not defined"
 
 const ProtectedRoute = ({ children, role }) => {
   const { user } = useAuth();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API } from '../services/api';
+import { getAssignments } from '../services/api';
 
 const AdminCourses = () => {
   const [courseData, setCourseData] = useState({ name: "", duration: 3 });
@@ -7,7 +7,7 @@ const AdminCourses = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post('/programmes', courseData); [span_3](start_span)//[span_3](end_span)
+      const res = await getAssignments();//[span_3](end_span)
       alert("Course (Programme) Created!");
     } catch (err) {
       alert("Error creating course.");
