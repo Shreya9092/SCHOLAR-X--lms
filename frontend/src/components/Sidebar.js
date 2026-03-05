@@ -1,57 +1,95 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import '../styles/Sidebar.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
-  const { user, handleLogout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Get the user from localStorage to check the role
+  const user = JSON.parse(localStorage.getItem('user'));
+  const role = user?.role?.toLowerCase();
 
-  // Navigation config based on the Postman collection roles
-   const menuConfig = {
-    admin: [
-      { name: 'Subjects', path: '/admin/subjects', icon: '📖' },
-      { name: 'Sections', path: '/admin/sections', icon: '🏫' },
-      { name: 'Programmes', path: '/admin/programmes', icon: '🎓' },
-    ],
-    teacher: [
-      { name: 'Dashboard', path: '/teacher-dashboard', icon: '📊' },
-      { name: 'Attendance', path: '/teacher/attendance', icon: '📝' },
-      { name: 'Create Assignment', path: '/teacher/assignments', icon: '➕' },
-    ],
-    student: [
-      { name: 'My Dashboard', path: '/student-dashboard', icon: '👤' },
-      { name: 'Materials', path: '/student/materials', icon: '📚' },
-      { name: 'Assignments', path: '/student/assignments', icon: '📤' },
-    ]
+  // Define menu items for each role
+  const teacherLinks = [
+    { name: 'Dashboard', path: '/teacher-dashboard', icon: '🏠' },
+    { name: 'Attendance', path: '/teacher/attendance', icon: '📝' },
+    { name: 'Materials', path: '/teacher/materials', icon: '📚' },
+  ];
+
+  const studentLinks = [
+    { name: 'Dashboard', path: '/student-dashboard', icon: '🏠' },
+    { name: 'Materials', path: '/student/materials', icon: '📚' },
+    { name: 'Settings', path: '/student/settings', icon: '⚙️' },
+  ];
+
+  // Pick the correct list based on role
+  const menuItems = role === 'teacher' ? teacherLinks : studentLinks;
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = '/login';
   };
-  const currentMenu = menuConfig[user?.role] || [];
 
   return (
-    <aside className="lms-sidebar">
-      <div className="sidebar-logo">Scholar-X</div>
+    <div style={{ 
+      width: '260px', 
+      height: '100vh', 
+      background: '#2D2A4E', 
+      color: 'white', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      padding: '25px',
+      position: 'fixed'
+    }}>
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <h2 style={{ color: '#BB86FC', fontSize: '24px', margin: 0 }}>Scholar-X</h2>
+        <p style={{ fontSize: '12px', color: '#9b59b6', marginTop: '5px' }}>
+          {role === 'teacher' ? 'Teacher Portal' : 'Student Portal'}
+        </p>
+        <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', marginTop: '20px' }}></div>
+      </div>
       
-      <div className="user-profile-summary">
-        <p className="user-name">{user?.name || 'User'}</p>
-        <p className="user-role">{user?.role?.toUpperCase()}</p>
+      <div style={{ flex: 1 }}>
+        {menuItems.map((item) => (
+          <button
+            key={item.path}
+            onClick={() => navigate(item.path)}
+            style={{
+              width: '100%',
+              padding: '15px',
+              marginBottom: '10px',
+              background: location.pathname === item.path ? '#4B447A' : 'transparent',
+              border: 'none',
+              color: 'white',
+              textAlign: 'left',
+              borderRadius: '12px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: '15px'
+            }}
+          >
+            <span style={{ marginRight: '15px' }}>{item.icon}</span>
+            {item.name}
+          </button>
+        ))}
       </div>
 
-      <nav className="sidebar-nav">
-        {currentMenu.map((item) => (
-          <NavLink 
-            key={item.path} 
-            to={item.path} 
-            className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
-          >
-            <span className="nav-icon">{item.icon}</span>
-            {item.name}
-          </NavLink>
-        ))}
-      </nav>
-
-      <button onClick={handleLogout} className="logout-btn">
+      <button 
+        onClick={handleLogout}
+        style={{ 
+          padding: '15px', 
+          background: '#FF5252', 
+          border: 'none', 
+          color: 'white', 
+          borderRadius: '12px', 
+          cursor: 'pointer',
+          fontWeight: 'bold'
+        }}
+      >
         Logout
       </button>
-    </aside>
+    </div>
   );
 };
 

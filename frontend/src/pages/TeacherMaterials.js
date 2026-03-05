@@ -1,48 +1,64 @@
 import React, { useState } from 'react';
 import { createAssignment } from '../services/api';
+import '../styles/Attendance.css'; 
 
 const TeacherMaterials = () => {
   const [file, setFile] = useState(null);
-  const [details, setDetails] = useState({ title: '', description: '', subjectId: '' });
+  const [details, setDetails] = useState({ title: '', subjectId: '' });
 
   const handleUpload = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('file', file);
     formData.append('title', details.title);
-    formData.append('description', details.description);
     formData.append('subjectId', details.subjectId);
 
     try {
       await createAssignment(formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      alert("Material Uploaded Successfully!");
+      alert("Material Uploaded successfully!");
     } catch (err) {
-      alert("Upload failed. Check file size or Subject ID.");
+      alert("Upload failed. Check the console.");
     }
   };
 
   return (
-    <div className="admin-container">
-      <h2>Upload Study Material</h2>
-      <form onSubmit={handleUpload} className="admin-form">
-        <div className="form-group">
-          <label>Material Title</label>
-          <input type="text" placeholder="e.g. Unit 1: Database Basics" 
-            onChange={(e) => setDetails({...details, title: e.target.value})} required />
-        </div>
-        <div className="form-group">
-          <label>Subject ID</label>
-          <input type="text" placeholder="Paste the Subject ID" 
-            onChange={(e) => setDetails({...details, subjectId: e.target.value})} required />
-        </div>
-        <div className="form-group">
-          <label>Select File (PDF/Docs)</label>
-          <input type="file" onChange={(e) => setFile(e.target.files[0])} required />
-        </div>
-        <button type="submit" className="btn-lavender">Publish Material</button>
-      </form>
+    <div className="attendance-page-container">
+      <div className="attendance-card">
+        <h2 className="lavender-text">Upload Study Material</h2>
+        <p style={{color: '#666', marginBottom: '20px'}}>Add new resources for your class</p>
+        
+        <form onSubmit={handleUpload}>
+          <input 
+            type="text" 
+            className="login-input" 
+            placeholder="Material Title (e.g. Chapter 1 Notes)" 
+            onChange={(e) => setDetails({...details, title: e.target.value})} 
+            required 
+          />
+          <input 
+            type="text" 
+            className="login-input" 
+            placeholder="Subject ID" 
+            style={{ marginTop: '15px' }}
+            onChange={(e) => setDetails({...details, subjectId: e.target.value})} 
+            required 
+          />
+          <div style={{ 
+            margin: '20px 0', 
+            padding: '20px', 
+            border: '2px dashed #9b59b6', 
+            borderRadius: '10px',
+            textAlign: 'center'
+          }}>
+            <input type="file" onChange={(e) => setFile(e.target.files[0])} required />
+          </div>
+          <button type="submit" className="submit-btn" style={{ width: '100%' }}>
+            Publish Material
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

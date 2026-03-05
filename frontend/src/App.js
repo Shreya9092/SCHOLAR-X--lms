@@ -6,17 +6,29 @@ import StudentDashboard from './pages/studentdashboard';
 import MainLayout from './components/MainLayout';
 import TeacherMaterials from './pages/TeacherMaterials';
 import StudentMaterials from './pages/StudentMaterials';
-import AdminStudents from './pages/AdminStudents';
-import AdminCourses from './pages/AdminCourses';
-import AdminSections from './pages/AdminSections';
+// Import your settings page if you have created it, otherwise use a placeholder
+// import StudentSettings from './pages/StudentSettings'; 
+
+// Keep these imports clean
 import './styles/Modules.css';
 import './index.css';
-// Add any other pages that the terminal says are "not defined"
 
 const ProtectedRoute = ({ children, role }) => {
-  const { user } = useAuth();
-  if (!user) return <Navigate to="/login" />;
-  if (role && user.role !== role) return <Navigate to="/login" />;
+  const { user, loading } = useAuth();
+  const savedUser = JSON.parse(localStorage.getItem('user'));
+  const activeUser = user || savedUser;
+
+  if (loading) return <div>Loading...</div>;
+
+  if (!activeUser) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // Consistent role check
+  if (role && activeUser.role?.toLowerCase() !== role.toLowerCase()) {
+    return <Navigate to="/login" replace />;
+  }
+
   return children;
 };
 
@@ -25,38 +37,56 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Teacher Route */}
-<Route path="/teacher/materials" element={
-  <ProtectedRoute role="teacher"><MainLayout><TeacherMaterials /></MainLayout></ProtectedRoute>
-} />
-
-{/* Student Route */}
-<Route path="/student/materials" element={
-  <ProtectedRoute role="student"><MainLayout><StudentMaterials /></MainLayout></ProtectedRoute>
-} />
           <Route path="/login" element={<Login />} />
-          {/* Admin Specific Routes */}
-          <Route path="/admin/students" element={
-            <ProtectedRoute role="admin">
-              <MainLayout><AdminStudents /></MainLayout>
+
+          {/* Teacher Routes - Wrapped in MainLayout */}
+          <Route path="/teacher-dashboard" element={
+            <ProtectedRoute role="teacher">
+              <MainLayout><TeacherDashboard /></MainLayout>
             </ProtectedRoute>
           } />
-          <Route path="/admin/programmes" element={
-            <ProtectedRoute role="admin"><MainLayout><AdminCourses /></MainLayout></ProtectedRoute>
-          } />
-          <Route path="/admin/sections" element={
-            <ProtectedRoute role="admin"><MainLayout><AdminSections /></MainLayout></ProtectedRoute>
-          } />
-          
-          <Route path="/teacher-dashboard" element={
-            <ProtectedRoute role="teacher"><TeacherDashboard /></ProtectedRoute>
+
+          <Route path="/teacher/attendance" element={
+            <ProtectedRoute role="teacher">
+              <MainLayout><TeacherDashboard /></MainLayout>
+            </ProtectedRoute>
           } />
 
+          <Route path="/teacher/materials" element={
+            <ProtectedRoute role="teacher">
+              <MainLayout><TeacherMaterials /></MainLayout>
+            </ProtectedRoute>
+          } />
+
+          {/* Student Routes - Includes Settings route from Postman docs */}
           <Route path="/student-dashboard" element={
-            <ProtectedRoute role="student"><StudentDashboard /></ProtectedRoute>
+            <ProtectedRoute role="student">
+              <MainLayout><StudentDashboard /></MainLayout>
+            </ProtectedRoute>
           } />
           
-          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="/student/materials" element={
+            <ProtectedRoute role="student">
+              <MainLayout><StudentMaterials /></MainLayout>
+            </ProtectedRoute>
+          } />
+
+          {/* Logic for Student(Setting) and Student(Update_Settings) endpoints */}
+          <Route path="/student/settings" element={
+            <ProtectedRoute role="student">
+              <MainLayout>
+                <div className="attendance-card">
+                  <h2 className="lavender-text">Profile Settings</h2>
+                  <p>Manage your account information here.</p>
+                  {/* Your settings form logic will go here */}
+                </div>
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+
+          {/* Default Redirects */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </Router>
     </AuthProvider>

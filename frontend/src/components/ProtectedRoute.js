@@ -5,19 +5,28 @@ import { useAuth } from '../context/AuthContext';
 const ProtectedRoute = ({ children, role }) => {
   const { user, loading } = useAuth();
 
-  // Wait for AuthContext to check localStorage/API
-  if (loading) {
+  // 1. Check localStorage IMMEDIATELY (Synchronous check)
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
+
+  // 2. If the Context is still loading, but we have data in storage, 
+  // let the user stay on the page instead of redirecting.
+  if (loading && !storedUser) {
     return <div className="loading-screen">Loading Scholar-X...</div>;
   }
 
-  // If no user is found, redirect to login
-  if (!user) {
-    return <Navigate to="/login" />;
+  // 3. Absolute check: If no user in state AND no user in storage, redirect.
+  if (!user && !storedUser) {
+    return <Navigate to="/login" replace />;
   }
 
-  // If a specific role is required (e.g., admin) and user doesn't have it
-  if (role && user.role !== role) {
-    return <Navigate to="/" />; // Send them to their default dashboard
+  // 4. Role validation (Check both state and storage)
+  const currentUser = user || storedUser;
+  if (role && currentUser.role?.toLowerCase() !== role.toLowerCase()) {
+    const defaultPath = currentUser.role?.toLowerCase() === 'teacher' 
+      ? '/teacher-dashboard' 
+      : '/student-dashboard';
+    return <Navigate to={defaultPath} replace />;
   }
 
   return children;

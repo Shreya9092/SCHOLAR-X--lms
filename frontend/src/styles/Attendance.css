@@ -1,22 +1,96 @@
-.attendance-container {
-  padding: 20px;
+/* Container for the specific attendance page */
+.attendance-page-container {
+    animation: fadeIn 0.6s ease-out;
 }
 
+/* The Attendance Box */
+.attendance-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(155, 89, 182, 0.08); /* Soft lavender shadow */
+    border: 1px solid rgba(155, 89, 182, 0.1);
+}
+
+.attendance-header {
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f8f0fc;
+    padding-bottom: 15px;
+}
+
+/* Table Styling - This makes the Student ID and Status look professional */
 .attendance-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.attendance-table th, .attendance-table td {
-  padding: 15px;
-  text-align: left;
-  border-bottom: 1px solid var(--lavender-100);
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Gives rows a "floating" feel */
+    margin: 20px 0;
 }
 
 .attendance-table th {
-  background-color: var(--lavender-50);
-  color: var(--lavender-700);
+    color: #8e44ad;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    text-align: left;
+}
+
+.attendance-table td {
+    background: #fdfbff;
+    padding: 18px 20px;
+    border-top: 1px solid #f4ecf7;
+    border-bottom: 1px solid #f4ecf7;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.attendance-table td:first-child {
+    border-left: 1px solid #f4ecf7;
+    border-radius: 12px 0 0 12px;
+    font-family: 'Courier New', Courier, monospace; /* Makes IDs easier to read */
+}
+
+.attendance-table td:last-child {
+    border-right: 1px solid #f4ecf7;
+    border-radius: 0 12px 12px 0;
+}
+
+/* The "Action" Select Box */
+.status-select {
+    background: #ffffff;
+    border: 2px solid #e0d4e8;
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: #2c3e50;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.status-select:focus {
+    border-color: #9b59b6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.1);
+}
+
+/* The "Submit to Cloud" Button */
+.submit-btn {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(155, 89, 182, 0.4);
 }

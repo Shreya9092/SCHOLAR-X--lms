@@ -1,52 +1,67 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
+import '../styles/Admin.css'; 
 
 const Navbar = () => {
   const { user } = useAuth();
 
   return (
-    <nav className="lms-navbar" style={{
-      height: '60px',
-      background: 'white',
+    <header style={{
+      height: '70px',
+      backgroundColor: '#ffffff',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0 30px',
-      borderBottom: '1px solid var(--lavender-100)',
+      padding: '0 40px',
+      borderBottom: '1px solid #e0e0e0',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
       position: 'sticky',
       top: 0,
-      zIndex: 100
+      zIndex: 99
     }}>
+      {/* Left Side: Page Context */}
       <div className="nav-left">
-        <span style={{ color: 'var(--lavender-600)', fontWeight: '700', fontSize: '1.2rem' }}>
-          Dashboard Overview
-        </span>
+        <h2 style={{ 
+          margin: 0, 
+          fontSize: '18px', 
+          color: '#9b59b6', 
+          fontWeight: '700',
+          letterSpacing: '-0.5px'
+        }}>
+          DASHBOARD <span style={{ color: '#bdc3c7', fontWeight: '300', margin: '0 10px' }}>|</span> 
+          <span style={{ color: '#2c3e50', fontWeight: '500' }}>Overview</span>
+        </h2>
       </div>
 
-      <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-        <div className="user-info" style={{ textAlign: 'right' }}>
-          <div style={{ fontWeight: '600', color: 'var(--text-main)', fontSize: '0.9rem' }}>
-            {user?.name || 'Guest User'}
-          </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-            {user?.email}
-          </div>
+      {/* Right Side: User Profile */}
+      <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div style={{ textAlign: 'right' }}>
+          <p style={{ margin: 0, fontSize: '14px', fontWeight: '600', color: '#2c3e50' }}>
+            {user?.name || 'Instructor'}
+          </p>
+          <p style={{ margin: 0, fontSize: '11px', color: '#9b59b6', fontWeight: '700', textTransform: 'uppercase' }}>
+            {user?.role || 'Teacher'}
+          </p>
         </div>
-        <div className="avatar" style={{
-          width: '35px',
-          height: '35px',
-          borderRadius: '50%',
-          background: 'var(--lavender-200)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'var(--lavender-700)',
-          fontWeight: 'bold'
+        
+        {/* Professional Circle Avatar */}
+        <div style={{ 
+            width: '42px', 
+            height: '42px', 
+            background: 'linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%)', 
+            borderRadius: '12px', /* Modern squircle shape */
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            color: 'white', 
+            fontWeight: 'bold',
+            fontSize: '16px',
+            boxShadow: '0 4px 10px rgba(155, 89, 182, 0.3)'
         }}>
-          {user?.name?.charAt(0) || 'U'}
+          {user?.name ? user.name.charAt(0).toUpperCase() : 'T'}
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 
